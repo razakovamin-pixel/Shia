@@ -10,6 +10,7 @@
 <title>علم الرجال — Ilm al-Rijal | Ильм ар-Риджаль</title>
 <!-- manifest.json not available in single-file mode -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://smartapi.shop" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet" onerror="console.warn('Fonts blocked')">
 
 <style>
@@ -6260,17 +6261,14 @@ async function sendAiMessage() {
       ]
     };
 
-    // Запрос через локальный прокси server.py, чтобы обойти CORS
-    const res = await fetch('/proxy', {
+    // Прямой запрос к API (без прокси — быстрее)
+    const res = await fetch(AI_BASE_URL.replace(/\/$/, '') + '/chat/completions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        target_url: AI_BASE_URL.replace(/\/$/, '') + '/chat/completions',
-        headers: {
-          'Authorization': 'Bearer ' + AI_API_KEY
-        },
-        body: requestBody
-      })
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + AI_API_KEY
+      },
+      body: JSON.stringify(requestBody)
     });
 
     if (!res.ok) {
