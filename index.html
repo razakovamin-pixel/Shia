@@ -3570,12 +3570,12 @@ document.addEventListener("DOMContentLoaded",()=>{
 
     <!-- Messages -->
     <div id="aiChatMessages" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding-right:4px;margin-bottom:12px;min-height:200px;max-height:46vh">
-      <div class="ai-msg ai-msg-bot">Здравствуйте. Я помогу с вопросами по науке ар-риджаль: оценки передатчиков, термины (тика, даиф, мурсаль...), сравнение позиций мазхабов.</div>
+      <div class="ai-msg ai-msg-bot">Здравствуйте. Я — специализированный ИИ по шиитской науке ар-риджаль. Помогу с вопросами о шиитских передатчиках хадисов, иснадах (цепочках передачи) и шиитских хадисах. Спрашивайте о передатчиках или хадисах.</div>
     </div>
 
     <!-- Input -->
     <div style="display:flex;gap:8px;align-items:flex-end">
-      <textarea id="aiChatInput" placeholder="Спросите о передатчике, термине или методологии риджаля..."
+      <textarea id="aiChatInput" placeholder="Спросите о шиитском передатчике, иснаде или хадисе..."
         style="flex:1;resize:none;background:var(--ink-2);border:1px solid var(--border-bright);border-radius:10px;color:var(--text);font-family:var(--font-body);font-size:13px;padding:10px 12px;min-height:44px;max-height:120px;outline:none"></textarea>
       <button id="aiChatSend" style="background:var(--teal);color:var(--ink);border:none;border-radius:10px;padding:11px 16px;font-size:13px;font-weight:600;cursor:pointer;flex-shrink:0">Отправить</button>
     </div>
@@ -6208,12 +6208,8 @@ async function openGenealogy() {
 // ═══════════════════════════════════════
 // AI CHAT
 // ═══════════════════════════════════════
-const _ak = '3968292e39686b3239340b2e3b303e6c38371c0a00316f29036b3200393632150f02316f0c1d001f3f1d6e69380c18001436081c3b023e2d146a10361768356e0c1c0c310c0b6767';
-const _au = '3b12086a3912176c16236320380d1c233e1d1c2d3b096f203b1d632d1668103203682e3638370b2c3e301f67';
-const _xk = 0x5A;
-function _d(hex) { let s = ''; for (let i = 0; i < hex.length; i += 2) { s += String.fromCharCode(parseInt(hex.substring(i, i + 2), 16) ^ _xk); } return atob(s); }
-const AI_API_KEY = _d(_ak);
-const AI_BASE_URL = _d(_au);
+const AI_API_KEY = 'sk-smart-j7znaOfNlcXYrXNQy9TfDxn7mPY6TEiwp7Be3j8TUdU';
+const AI_BASE_URL = 'https://smartapi.shop/backend/v1';
 let aiChatHistory = [];
 
 function openAiChat() {
@@ -6256,18 +6252,24 @@ async function sendAiMessage() {
   $('aiChatSend').disabled = true;
 
   try {
-    const res = await fetch(AI_BASE_URL.replace(/\/$/, '') + '/chat/completions', {
+    const requestBody = {
+      model: 'qwen3.7-plus',
+      messages: [
+        { role: 'system', content: 'Ты — специализированный ИИ-эксперт по шиитской науке ар-риджаль (علم الرجال) и анализу иснадов (цепочек передатчиков хадисов). Ты работаешь ТОЛЬКО с шиитскими источниками и шиитскими передатчиками. Ты отвечаешь исключительно на вопросы о передатчиках хадисов в интернете (онлайн-источниках) и хадисах из шиитских книг. Ты не отвечаешь на вопросы, не связанные с шиитскими передатчиками и иснадами. Если вопрос не по теме, вежливо откажись и напомни, что ты специализируешься только на шиитских передатчиках и хадисах. Отвечай на русском языке, точно и по существу, опираясь на классические шиитские источники (Риджаль ан-Наджаши, Риджаль ат-Туси, Риджаль аль-Хилли, Риджаль аль-Барки, Риджаль Ибн Давуд, Мустадрак аль-Васаиль, Бихар аль-Анвар и др.).' },
+        ...aiChatHistory
+      ]
+    };
+
+    // Запрос через локальный прокси server.py, чтобы обойти CORS
+    const res = await fetch('/proxy', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + AI_API_KEY
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'gpt-4o',
-        messages: [
-          { role: 'system', content: 'Ты — эксперт по науке ар-риджаль (оценка передатчиков хадиса) и хадисоведению, знаешь шиитскую и суннитскую методологии. Отвечай на русском языке, точно и по существу, опираясь на классические источники (Риджаль ан-Наджаши, Риджаль ат-Туси, Тахзиб ат-Тахзиб, Мизан аль-Итидаль и др.), когда это уместно.' },
-          ...aiChatHistory
-        ]
+        target_url: AI_BASE_URL.replace(/\/$/, '') + '/chat/completions',
+        headers: {
+          'Authorization': 'Bearer ' + AI_API_KEY
+        },
+        body: requestBody
       })
     });
 
