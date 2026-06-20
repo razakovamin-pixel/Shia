@@ -1,0 +1,25 @@
+[build]
+  publish = "."
+  command = "echo 'No build needed'"
+
+# Proxy AI chat API through Netlify
+[[redirects]]
+  from = "/api/chat/completions"
+  to = "https://smartapi.shop/backend/v1/chat/completions"
+  status = 200
+  force = true
+  headers = { X-From = "netlify" }
+
+# Proxy Anthropic translation API through Netlify
+[[redirects]]
+  from = "/api/anthropic/v1/messages"
+  to = "https://api.anthropic.com/v1/messages"
+  status = 200
+  force = true
+  headers = { X-From = "netlify" }
+
+# SPA fallback — serve index.html for all other routes
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

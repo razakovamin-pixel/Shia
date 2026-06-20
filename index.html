@@ -4621,7 +4621,7 @@ Yalnız etibarlı JSON ilə cavab verin, xaricdə heç bir mətn olmadan, dəqiq
 {"name":"Azərbaycan dilində ravi adı","bio":"tərcümə olunmuş mətn","analysis":"tərcümə olunmuş təhlil","sources":["Mənbə 1","Mənbə 2"]}`;
   }
 
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
+  const res = await fetch('/api/anthropic/v1/messages', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -6210,7 +6210,7 @@ async function openGenealogy() {
 // AI CHAT
 // ═══════════════════════════════════════
 const AI_API_KEY = 'sk-smart-j7znaOfNlcXYrXNQy9TfDxn7mPY6TEiwp7Be3j8TUdU';
-const AI_BASE_URL = 'https://smartapi.shop/backend/v1';
+const AI_BASE_URL = '/api';
 let aiChatHistory = [];
 
 function openAiChat() {
