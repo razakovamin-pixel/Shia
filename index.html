@@ -4621,7 +4621,10 @@ Yalnız etibarlı JSON ilə cavab verin, xaricdə heç bir mətn olmadan, dəqiq
 {"name":"Azərbaycan dilində ravi adı","bio":"tərcümə olunmuş mətn","analysis":"tərcümə olunmuş təhlil","sources":["Mənbə 1","Mənbə 2"]}`;
   }
 
-  const res = await fetch('/anthropic/v1/messages', {
+  const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
+  const CORS_PROXY = 'https://corsproxy.io/?';
+
+  const res = await fetch(CORS_PROXY + encodeURIComponent(ANTHROPIC_URL), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -6261,14 +6264,13 @@ async function sendAiMessage() {
       ]
     };
 
-    // Попытка 1: через Netlify proxy (без CORS-проблем)
-    // Попытка 2: напрямую (fallback, если proxy не работает)
-    let res = null;
-    const proxyUrl = AI_BASE_URL.replace(/\/$/, '') + '/chat/completions';
-    const directUrl = 'https://smartapi.shop/backend/v1/chat/completions';
+    // Используем CORS-прокси для обхода CORS-ограничений на статическом хостинге
+    // corsproxy.io — бесплатный CORS-прокси, работает с любого хостинга
+    const API_URL = 'https://smartapi.shop/backend/v1/chat/completions';
+    const CORS_PROXY = 'https://corsproxy.io/?';
+    const proxyUrl = CORS_PROXY + encodeURIComponent(API_URL);
 
-    // Попытка через proxy
-    res = await fetch(proxyUrl, {
+    const res = await fetch(proxyUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -6276,20 +6278,6 @@ async function sendAiMessage() {
       },
       body: JSON.stringify(requestBody)
     });
-
-    // Проверяем что получили JSON-ответ от API (а не 404/HTML от fallback)
-    const contentType = res.headers.get('content-type') || '';
-    if (!res.ok || !contentType.includes('json')) {
-      console.warn('Proxy returned non-JSON or error, trying direct API');
-      res = await fetch(directUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + AI_API_KEY
-        },
-        body: JSON.stringify(requestBody)
-      });
-    }
 
     if (!res.ok) {
       const errText = await res.text().catch(() => res.statusText);
