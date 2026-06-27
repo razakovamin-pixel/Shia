@@ -10,7 +10,6 @@
 <title>علم الرجال — Ilm al-Rijal | Ильм ар-Риджаль</title>
 <!-- manifest.json not available in single-file mode -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://smartapi.shop" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet" onerror="console.warn('Fonts blocked')">
 
 <style>
@@ -18,33 +17,38 @@
    DESIGN TOKРУS
 ═══════════════════════════════════════ */
 :root {
-  --ink: #080c14;
-  --ink-1: #0f1724;
-  --ink-2: #162035;
-  --ink-3: #1d2a44;
-  --teal: #0d9488;
-  --teal-glow: rgba(13,148,136,.18);
-  --teal-light: #5eead4;
-  --amber: #d97706;
-  --amber-glow: rgba(217,119,6,.15);
+  /* Shia palette: deep emerald (Ahl al-Bayt green) + warm gold accents */
+  --ink: #07120f;
+  --ink-1: #0c1a16;
+  --ink-2: #122620;
+  --ink-3: #18342b;
+  --teal: #14a877;
+  --teal-glow: rgba(20,168,119,.18);
+  --teal-light: #6ee7b0;
+  --amber: #c89b3c;
+  --amber-glow: rgba(200,155,60,.16);
   --rose: #e11d48;
   --rose-glow: rgba(225,29,72,.15);
-  --gold: #b45309;
-  --text: #e2e8f0;
-  --text-2: #94a3b8;
-  --text-3: #475569;
-  --border: rgba(255,255,255,.07);
-  --border-bright: rgba(255,255,255,.14);
+  --gold: #d4af37;
+  --gold-glow: rgba(212,175,55,.16);
+  --karbala: #9c1c1c;
+  --karbala-glow: rgba(156,28,28,.14);
+  --text: #e7f1ec;
+  --text-2: #95ad9f;
+  --text-3: #4d6a5b;
+  --border: rgba(212,175,55,.09);
+  --border-bright: rgba(212,175,55,.16);
   --radius: 12px;
   --radius-lg: 20px;
-  --shadow: 0 8px 32px rgba(0,0,0,.5);
-  --shadow-sm: 0 2px 12px rgba(0,0,0,.35);
+  --shadow: 0 8px 32px rgba(0,0,0,.55);
+  --shadow-sm: 0 2px 12px rgba(0,0,0,.4);
   --font-display: 'Playfair Display', Georgia, serif;
   --font-body: 'IBM Plex Sans', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
   --font-arabic: 'Amiri', 'Traditional Arabic', serif;
   --sidebar-w: 360px;
   --header-h: 64px;
+  --geo-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='none' stroke='%23d4af37' stroke-opacity='0.4' stroke-width='1'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z'/%3E%3Ccircle cx='30' cy='30' r='12'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 /* ═══════════════════════════════════════
@@ -52,7 +56,7 @@
 ═══════════════════════════════════════ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { height: 100%; font-size: 16px; scroll-behavior: smooth; }
+html { height: 100%; font-size: 16px; scroll-behavior: smooth; overscroll-behavior: none; }
 
 body {
   font-family: var(--font-body);
@@ -61,6 +65,8 @@ body {
   height: 100%;
   overflow: hidden;
   position: relative;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Arabic RTL mode */
@@ -195,12 +201,23 @@ html[lang="ar"] .welcome-stats {
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* Noise texture */
+/* Islamic geometric texture overlay (subtle, behind content) */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  background-image: var(--geo-pattern);
+  background-size: 60px 60px;
+  opacity: .035;
+  pointer-events: none;
+  z-index: 0;
+}
+/* Radial emerald glow, evokes mosque-lamp light */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(20,168,119,.10), transparent 60%);
   pointer-events: none;
   z-index: 0;
 }
@@ -215,7 +232,7 @@ body::before {
 ═══════════════════════════════════════ */
 .app-header {
   height: var(--header-h);
-  background: linear-gradient(135deg, var(--ink-1) 0%, var(--ink-2) 60%, rgba(13,148,136,.08) 100%);
+  background: linear-gradient(135deg, var(--ink-1) 0%, var(--ink-2) 60%, rgba(20,168,119,.08) 100%);
   border-bottom: 1px solid var(--border-bright);
   display: flex;
   align-items: center;
@@ -229,8 +246,8 @@ body::before {
   position: absolute;
   bottom: 0; left: 0; right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--teal), transparent);
-  opacity: .4;
+  background: linear-gradient(90deg, transparent, var(--gold), var(--teal), var(--gold), transparent);
+  opacity: .5;
 }
 
 .btn-menu {
@@ -258,15 +275,16 @@ body::before {
 .app-emblem {
   width: 36px;
   height: 36px;
-  background: var(--teal-glow);
-  border: 1px solid rgba(13,148,136,.4);
-  border-radius: 10px;
+  background: radial-gradient(circle at 35% 30%, rgba(20,168,119,.25), var(--teal-glow));
+  border: 1.5px solid var(--gold);
+  box-shadow: 0 0 0 1px rgba(212,175,55,.15), 0 0 14px rgba(20,168,119,.25);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-arabic);
-  font-size: 20px;
-  color: var(--teal);
+  font-size: 19px;
+  color: var(--gold);
   flex-shrink: 0;
 }
 
@@ -414,12 +432,12 @@ body::before {
   transition: all .2s;
 }
 .action-btn:hover .action-icon {
-  background: rgba(13,148,136,.15);
-  border-color: rgba(13,148,136,.4);
+  background: rgba(20,168,119,.15);
+  border-color: rgba(20,168,119,.4);
 }
 .action-btn.active .action-icon {
-  background: rgba(13,148,136,.2);
-  border-color: rgba(13,148,136,.5);
+  background: rgba(20,168,119,.2);
+  border-color: rgba(20,168,119,.5);
 }
 
 .action-label {
@@ -611,15 +629,14 @@ html[lang="ar"] .search-clear { right: auto; left: 10px; }
 
 .stats-count strong { color: var(--teal); }
 
-/* Transmitter list */
+/* Transmitter list (virtualized viewport) */
 .transmitter-list {
   flex: 1;
   overflow-y: auto;
-  list-style: none;
-  padding: 8px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .tx-item {
@@ -714,6 +731,8 @@ html[lang="ar"] .tx-fav { right: auto; left: 10px; }
   overflow-y: auto;
   background: var(--ink);
   position: relative;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Добро пожаловать screen */
@@ -731,22 +750,24 @@ html[lang="ar"] .tx-fav { right: auto; left: 10px; }
 .welcome-emblem {
   width: 96px;
   height: 96px;
-  background: var(--ink-2);
-  border: 1px solid var(--border-bright);
+  background: radial-gradient(circle at 35% 30%, rgba(20,168,119,.18), var(--ink-2));
+  border: 2px solid var(--gold);
+  outline: 1px solid rgba(212,175,55,.25);
+  outline-offset: 5px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-arabic);
   font-size: 52px;
-  color: var(--teal);
-  box-shadow: 0 0 40px var(--teal-glow);
+  color: var(--gold);
+  box-shadow: 0 0 40px var(--teal-glow), inset 0 0 20px rgba(20,168,119,.12);
   animation: pulse 3s ease-in-out infinite;
 }
 
 @keyframes pulse {
-  0%, 100% { box-shadow: 0 0 40px var(--teal-glow); }
-  50% { box-shadow: 0 0 60px rgba(13,148,136,.35); }
+  0%, 100% { box-shadow: 0 0 40px var(--teal-glow), inset 0 0 20px rgba(20,168,119,.12); }
+  50% { box-shadow: 0 0 60px rgba(20,168,119,.4), inset 0 0 24px rgba(212,175,55,.15); }
 }
 
 .welcome h2 {
@@ -809,6 +830,14 @@ html[lang="ar"] .tx-fav { right: auto; left: 10px; }
   margin-bottom: 28px;
   border-bottom: 1px solid var(--border);
   position: relative;
+}
+.det-header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0;
+  width: 64px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
 }
 
 .det-top {
@@ -1084,7 +1113,8 @@ html[lang="ar"] .analysis-box {
 .loading-emblem {
   font-family: var(--font-arabic);
   font-size: 80px;
-  color: var(--teal);
+  color: var(--gold);
+  text-shadow: 0 0 30px var(--teal-glow);
   animation: emblemPulse 1.5s ease-in-out infinite;
 }
 
@@ -1105,7 +1135,7 @@ html[lang="ar"] .analysis-box {
   content: '';
   display: block;
   height: 100%;
-  background: var(--teal);
+  background: linear-gradient(90deg, var(--teal), var(--gold));
   animation: loadBar 1.2s ease-in-out infinite;
 }
 
@@ -1124,20 +1154,31 @@ html[lang="ar"] .analysis-box {
    RESPONSIVE — MOBILE
 ═══════════════════════════════════════ */
 /* ── Bottom tab bar ─────────────────────────────────────────── */
+/* Safe-area background fill — закрывает чёрную полосу под tab-bar на Android/iOS */
+.tab-bar::after {
+  content: '';
+  position: absolute;
+  bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
+  left: 0; right: 0;
+  height: env(safe-area-inset-bottom, 0px);
+  background: var(--ink-1);
+  pointer-events: none;
+}
+
 .tab-bar {
   display: none;
   position: fixed;
   bottom: 0; left: 0; right: 0;
-  height: 60px;
+  height: calc(60px + env(safe-area-inset-bottom, 0px));
   background: var(--ink-1);
   border-top: 1px solid var(--border-bright);
   z-index: 400;
-  padding-bottom: env(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 .tab-bar-inner {
   display: flex;
-  height: 100%;
+  height: 60px;
 }
 
 .tab-btn {
@@ -1183,7 +1224,7 @@ html[lang="ar"] .analysis-box {
   .btn-menu { display: none !important; }
 
   .app-body {
-    height: calc(100dvh - var(--header-h) - var(--actionbar-h) - 60px - env(safe-area-inset-bottom));
+    height: calc(100dvh - var(--header-h) - var(--actionbar-h) - 60px - env(safe-area-inset-bottom, 0px));
     overflow: hidden;
   }
 
@@ -1321,15 +1362,6 @@ html[lang="ar"] .src-item { flex-direction: row-reverse; }
 /* Print-safe */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
-  #fxLayer, .fx-particle, body::before { display: none !important; }
-  .app-intro .app-header,
-  .app-intro .action-bar-wrap,
-  .app-intro .sidebar,
-  .app-intro .content {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
 }
 
 /* ═══════════════════════════════════════
@@ -1425,9 +1457,9 @@ body.light-theme .bio-box, body.light-theme .analysis-box { background: var(--in
   padding: 3px 10px; font-size: 11px; color: var(--text-2); cursor: pointer;
   transition: all .15s; white-space: nowrap; }
 .tl-chip:hover { background: var(--teal-glow); border-color: var(--teal); color: var(--teal-light); }
-.tl-chip.tl-trust { border-color: rgba(13,148,136,.4); }
+.tl-chip.tl-trust { border-color: rgba(20,168,119,.4); }
 .tl-chip.tl-weak { border-color: rgba(225,29,72,.3); }
-.tl-chip.tl-disputed { border-color: rgba(217,119,6,.4); }
+.tl-chip.tl-disputed { border-color: rgba(200,155,60,.4); }
 
 /* ═══════════════════════════════════════
    GLOSSARY PANEL
@@ -1725,7 +1757,7 @@ body.light-theme .bio-box, body.light-theme .analysis-box { background: var(--in
   height: 32px;
   border-radius: 50%;
   background: var(--teal-glow);
-  border: 1px solid rgba(13,148,136,.4);
+  border: 1px solid rgba(20,168,119,.4);
   color: var(--teal);
   font-family: var(--font-mono);
   font-size: 13px;
@@ -1946,7 +1978,7 @@ body.light-theme .bio-box, body.light-theme .analysis-box { background: var(--in
    SEARCH HIGHLIGHT
 ═══════════════════════════════════════ */
 .tx-name mark, .tx-arabic mark {
-  background: rgba(217,119,6,.25);
+  background: rgba(200,155,60,.25);
   color: inherit;
   border-radius: 2px;
   padding: 0 1px;
@@ -2008,7 +2040,7 @@ body.light-theme .bio-box, body.light-theme .analysis-box { background: var(--in
   align-items: center;
   gap: 4px;
   background: var(--teal-glow);
-  border: 1px solid rgba(13,148,136,.3);
+  border: 1px solid rgba(20,168,119,.3);
   border-radius: 12px;
   padding: 2px 8px;
   font-size: 10px;
@@ -2204,7 +2236,7 @@ html[lang="fa"] .det-top { flex-direction: row-reverse; }
   width: min(520px, 100%);
   max-height: min(90dvh, 720px);
   overflow-y: auto;
-  box-shadow: 0 32px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(13,148,136,.15);
+  box-shadow: 0 32px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(20,168,119,.15);
   animation: donateBoxIn .35s cubic-bezier(.22,1,.36,1);
   position: relative;
   scrollbar-width: thin;
@@ -2221,7 +2253,7 @@ html[lang="fa"] .det-top { flex-direction: row-reverse; }
 /* Top accent bar */
 .donate-accent {
   height: 3px;
-  background: linear-gradient(90deg, #0d9488, #5eead4, #0d9488);
+  background: linear-gradient(90deg, #14a877, #6ee7b0, #14a877);
   background-size: 200% 100%;
   animation: accentFlow 3s linear infinite;
   border-radius: 20px 20px 0 0;
@@ -2249,7 +2281,7 @@ html[lang="fa"] .det-top { flex-direction: row-reverse; }
   line-height: 1.25;
   flex: 1;
 }
-.donate-title span { color: #5eead4; }
+.donate-title span { color: #6ee7b0; }
 .donate-close-btn {
   flex-shrink: 0;
   background: rgba(255,255,255,.06);
@@ -2281,7 +2313,7 @@ html[lang="fa"] .det-top { flex-direction: row-reverse; }
   color: #94a3b8;
   line-height: 1.75;
   margin-bottom: 22px;
-  border-left: 2px solid rgba(13,148,136,.4);
+  border-left: 2px solid rgba(20,168,119,.4);
   padding-left: 14px;
 }
 
@@ -2304,8 +2336,8 @@ html[lang="fa"] .det-top { flex-direction: row-reverse; }
   cursor: pointer;
   position: relative;
 }
-.wallet-row:hover { border-color: rgba(13,148,136,.4); }
-.wallet-row:active { background: rgba(13,148,136,.06); }
+.wallet-row:hover { border-color: rgba(20,168,119,.4); }
+.wallet-row:active { background: rgba(20,168,119,.06); }
 
 .wallet-label {
   display: flex;
@@ -2313,7 +2345,7 @@ html[lang="fa"] .det-top { flex-direction: row-reverse; }
   gap: 7px;
   font-size: 11px;
   font-weight: 700;
-  color: #5eead4;
+  color: #6ee7b0;
   text-transform: uppercase;
   letter-spacing: .07em;
 }
@@ -2334,12 +2366,12 @@ html[lang="fa"] .det-top { flex-direction: row-reverse; }
   position: absolute;
   top: 10px;
   right: 12px;
-  background: rgba(13,148,136,.12);
-  border: 1px solid rgba(13,148,136,.25);
+  background: rgba(20,168,119,.12);
+  border: 1px solid rgba(20,168,119,.25);
   border-radius: 6px;
   padding: 3px 8px;
   font-size: 10px;
-  color: #5eead4;
+  color: #6ee7b0;
   cursor: pointer;
   opacity: 0;
   transition: opacity .15s;
@@ -2351,8 +2383,8 @@ html[lang="fa"] .det-top { flex-direction: row-reverse; }
 
 /* Card row */
 .card-row {
-  background: linear-gradient(135deg, rgba(217,119,6,.08), rgba(180,83,9,.06));
-  border: 1px solid rgba(217,119,6,.22);
+  background: linear-gradient(135deg, rgba(200,155,60,.08), rgba(180,140,40,.06));
+  border: 1px solid rgba(200,155,60,.22);
   border-radius: 12px;
   padding: 12px 14px;
   margin-bottom: 20px;
@@ -2375,18 +2407,18 @@ html[lang="fa"] .det-top { flex-direction: row-reverse; }
   font-family: 'Amiri', serif;
   line-height: 1.7;
 }
-.donate-footer em { color: #5eead4; font-style: normal; }
+.donate-footer em { color: #6ee7b0; font-style: normal; }
 
 /* Close button at bottom */
 .donate-dismiss {
   display: block;
   width: 100%;
   margin-top: 16px;
-  background: rgba(13,148,136,.1);
-  border: 1px solid rgba(13,148,136,.25);
+  background: rgba(20,168,119,.1);
+  border: 1px solid rgba(20,168,119,.25);
   border-radius: 10px;
   padding: 10px;
-  color: #5eead4;
+  color: #6ee7b0;
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: 13px;
   font-weight: 600;
@@ -2395,7 +2427,7 @@ html[lang="fa"] .det-top { flex-direction: row-reverse; }
   transition: all .2s;
   touch-action: manipulation;
 }
-.donate-dismiss:hover { background: rgba(13,148,136,.2); border-color: rgba(94,234,212,.4); }
+.donate-dismiss:hover { background: rgba(20,168,119,.2); border-color: rgba(110,231,176,.4); }
 
 @media (max-width: 480px) {
   .donate-inner { padding: 18px 16px 22px; }
@@ -2414,23 +2446,22 @@ html[lang="fa"] .det-top { flex-direction: row-reverse; }
 
 body {
   background:
-    radial-gradient(circle at 20% 20%, rgba(13,148,136,.10), transparent 22%),
-    radial-gradient(circle at 80% 10%, rgba(217,119,6,.10), transparent 20%),
+    radial-gradient(circle at 20% 20%, rgba(20,168,119,.10), transparent 22%),
+    radial-gradient(circle at 80% 10%, rgba(200,155,60,.10), transparent 20%),
     radial-gradient(circle at 50% 90%, rgba(225,29,72,.08), transparent 18%),
     linear-gradient(135deg, #080c14 0%, #0b1220 45%, #06070b 100%);
   background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%;
   animation: bgDrift 18s ease-in-out infinite alternate;
 }
 
-body::after {
-  content: '';
+.body-ambient-layer {
   position: fixed;
-  inset: -30%;
+  inset: 0;
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(circle at 30% 25%, rgba(94,234,212,.08), transparent 18%),
-    radial-gradient(circle at 70% 30%, rgba(217,119,6,.06), transparent 16%),
+    radial-gradient(circle at 30% 25%, rgba(110,231,176,.08), transparent 18%),
+    radial-gradient(circle at 70% 30%, rgba(200,155,60,.06), transparent 16%),
     radial-gradient(circle at 50% 70%, rgba(225,29,72,.05), transparent 18%);
   filter: blur(28px);
   opacity: .8;
@@ -2438,13 +2469,26 @@ body::after {
   transform: translate3d(0,0,0);
 }
 
+body::after {
+  content: none;
+}
+
 .app-header,
 .action-bar,
 .sidebar,
 .content,
-.welcome-emblem,
-.loading-emblem {
-  will-change: transform, opacity;
+.card,
+.status-card,
+.bio-box,
+.analysis-box,
+.tx-item,
+.filter-chip,
+.btn-icon,
+.btn-quick,
+.action-btn,
+.det-header,
+.welcome-emblem {
+  will-change: transform, opacity, box-shadow;
 }
 
 .app-header {
@@ -2530,7 +2574,7 @@ html[lang="ar"] .tx-item:hover {
 .filter-chip.active,
 .action-btn.active,
 .tab-btn.active {
-  box-shadow: 0 0 0 1px rgba(94,234,212,.18), 0 0 24px rgba(13,148,136,.08);
+  box-shadow: 0 0 0 1px rgba(110,231,176,.18), 0 0 24px rgba(20,168,119,.08);
 }
 
 .det-name,
@@ -2538,7 +2582,7 @@ html[lang="ar"] .tx-item:hover {
 .welcome h2,
 .app-title,
 .ws-num {
-  text-shadow: 0 0 18px rgba(13,148,136,.05);
+  text-shadow: 0 0 18px rgba(20,168,119,.05);
 }
 
 .det-header::before,
@@ -2577,7 +2621,7 @@ html[lang="ar"] .tx-item:hover {
 .btn-icon:hover svg,
 .action-btn:hover svg,
 .btn-quick:hover svg {
-  filter: drop-shadow(0 0 8px rgba(94,234,212,.35));
+  filter: drop-shadow(0 0 8px rgba(110,231,176,.35));
 }
 
 .toast {
@@ -2588,7 +2632,7 @@ html[lang="ar"] .tx-item:hover {
   position: relative;
 }
 .sec-title::after {
-  background: linear-gradient(90deg, rgba(255,255,255,.12), rgba(94,234,212,.45), rgba(255,255,255,.12));
+  background: linear-gradient(90deg, rgba(255,255,255,.12), rgba(110,231,176,.45), rgba(255,255,255,.12));
   background-size: 200% 100%;
   animation: shimmerLine 3.5s linear infinite;
 }
@@ -2612,7 +2656,7 @@ select:focus {
 .fx-particle {
   position: absolute;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(94,234,212,.9) 0%, rgba(13,148,136,.25) 45%, transparent 70%);
+  background: radial-gradient(circle, rgba(110,231,176,.9) 0%, rgba(20,168,119,.25) 45%, transparent 70%);
   filter: blur(.5px);
   opacity: .0;
   animation: floatParticle linear infinite;
@@ -2660,9 +2704,9 @@ select:focus {
   100% { opacity: .85; }
 }
 @keyframes toastGlow {
-  0% { box-shadow: 0 0 0 rgba(13,148,136,0); }
-  50% { box-shadow: 0 0 24px rgba(13,148,136,.15); }
-  100% { box-shadow: 0 0 0 rgba(13,148,136,0); }
+  0% { box-shadow: 0 0 0 rgba(20,168,119,0); }
+  50% { box-shadow: 0 0 24px rgba(20,168,119,.15); }
+  100% { box-shadow: 0 0 0 rgba(20,168,119,0); }
 }
 @keyframes shimmerLine {
   0% { background-position: 0% 50%; }
@@ -2728,7 +2772,7 @@ select:focus {
   display: block;
   height: 10px;
   border-radius: 999px;
-  background: linear-gradient(90deg, rgba(94,234,212,.12), rgba(94,234,212,.38), rgba(94,234,212,.12));
+  background: linear-gradient(90deg, rgba(110,231,176,.12), rgba(110,231,176,.38), rgba(110,231,176,.12));
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
 }
@@ -2759,17 +2803,15 @@ select:focus {
   100% { transform: translateX(320%); }
 }
 .tx-item {
-  animation: itemIn .14s ease both;
+  animation: itemIn .22s ease both;
   will-change: transform, opacity;
-  content-visibility: auto;
-  contain-intrinsic-size: 72px;
 }
 @keyframes itemIn {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
 }
 .tx-item.active {
-  box-shadow: 0 0 0 1px rgba(13,148,136,.2), 0 10px 30px rgba(13,148,136,.08);
+  box-shadow: 0 0 0 1px rgba(20,168,119,.2), 0 10px 30px rgba(20,168,119,.08);
   animation: activeGlow 2.4s ease-in-out infinite;
 }
 @keyframes activeGlow {
@@ -2798,106 +2840,17 @@ select:focus {
   from { opacity: 0; transform: translateY(16px) scale(.99); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
-
-</style>
-
-<style id="academic-archive-theme">
-:root{
- --ink:#f7f3ea !important;
- --ink-1:#ffffff !important;
- --ink-2:#f1ede3 !important;
- --ink-3:#e2dccf !important;
- --text:#1f2937 !important;
- --text-2:#4b5563 !important;
- --text-3:#6b7280 !important;
- --teal:#1f3b5b !important;
- --teal-light:#345b88 !important;
- --gold:#8b6f47 !important;
- --border:#d8d1c4 !important;
- --border-bright:#cfc7b8 !important;
+.ai-thinking { color: var(--text-3) !important; font-style: italic; }
+.ai-thinking::after {
+  content: '';
+  display: inline-block;
+  animation: aiDots 1.2s steps(4) infinite;
 }
-body{background:var(--ink)!important;}
-body::before,.welcome-emblem,.loading-emblem{display:none!important;}
-.app-header{
- background:#fff!important;
- border-bottom:2px solid var(--gold)!important;
+@keyframes aiDots {
+  0% { content: ''; } 25% { content: '.'; } 50% { content: '..'; } 75% { content: '...'; }
 }
-.app-title,.det-name,.panel-title{
- font-family: Georgia, serif!important;
-}
-.sidebar,.content,.status-card,.bio-box,.analysis-box,.panel-box,.tx-item{
- box-shadow:none!important;
- backdrop-filter:none!important;
-}
-.tx-item,.status-card,.bio-box,.analysis-box,.panel-box{
- border:1px solid var(--border)!important;
- border-radius:10px!important;
-}
-.action-bar,.action-bar-title{
- background:#f5f1e8!important;
-}
-.filter-chip.active,.lang-btn.active{
- background:var(--teal)!important;
-}
-</style>
-
-
-<style id="donate-archive-redesign">
-.donate-box,.support-modal,.donation-modal{
-  background:#faf7f0 !important;
-  border:1px solid #d8cfbf !important;
-  color:#2c3440 !important;
-}
-.donate-title{color:#243447 !important;}
-.wallet-row,.card-row{
-  background:#f8f5ee !important;
-  border:1px solid #d8cfbf !important;
-  box-shadow:none !important;
-}
-.wallet-copy,.copy-btn{
-  background:#ebe5d8 !important;
-  border:1px solid #d8cfbf !important;
-  color:#243447 !important;
-}
-</style>
-
-
-<style id="archive-support-final">
-.donate-box,.support-modal,.donation-modal{
- background:#f8f5ee!important;
- border:1px solid #d8cfbf!important;
- color:#2c3440!important;
- box-shadow:none!important;
-}
-.wallet-row,.card-row{
- background:#faf7f0!important;
- border:1px solid #d8cfbf!important;
- border-radius:12px!important;
-}
-.copy-btn,.wallet-copy{
- background:#ebe5d8!important;
- color:#243447!important;
- border:1px solid #d8cfbf!important;
-}
-</style>
-
-
-<style id="archive-custom-patch">
-/* Убираем неон */
-.welcome-emblem,.dot-trust,.dot-weak,.dot-disputed,
-.app-header::after{
- box-shadow:none!important;
- animation:none!important;
-}
-/* Скрываем лишние разделы/кнопки */
-[data-panel="api"],#btnApi,
-[data-panel="random"],#btnRandom,
-[data-panel="isnad"],#btnIsnad,
-[data-panel="quiz"],#btnТест,
-[data-panel="conflicts"],#btnConflicts,
-[data-panel="geography"],#btnGeography{
- display:none!important;
-}
+#aiChatMessages::-webkit-scrollbar { width: 3px; }
+#aiChatMessages::-webkit-scrollbar-thumb { background: var(--ink-3); border-radius: 2px; }
 </style>
 
 <script>
@@ -2922,6 +2875,8 @@ document.addEventListener("DOMContentLoaded",()=>{
 </head>
 <body class="app-intro">
 
+<div class="body-ambient-layer" aria-hidden="true"></div>
+
 
 <!-- DONATION MODAL -->
 <div class="donate-overlay" id="donateOverlay" role="dialog" aria-modal="true" aria-label="Поддержать проект" style="display:none">
@@ -2936,7 +2891,7 @@ document.addEventListener("DOMContentLoaded",()=>{
       <div class="donate-body">
         Проект <strong style="color:#e2e8f0">ShiaIsnad</strong> развивается исключительно благодаря энтузиазму и поддержке неравнодушных людей.<br><br>
         Сайт полностью бесплатный и останется таким, однако его развитие, поддержка домена, хостинга и добавление новых материалов требуют времени и средств.<br><br>
-        Если вы хотите поддержать проект любой суммой, мы будем искренне благодарны. Поддержка является исключительно <strong style="color:#5eead4">добровольной</strong>.
+        Если вы хотите поддержать проект любой суммой, мы будем искренне благодарны. Поддержка является исключительно <strong style="color:#6ee7b0">добровольной</strong>.
       </div>
 
       <div class="donate-wallets">
@@ -2980,7 +2935,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   <div class="loading-card">
     <div class="loading-emblem">ر</div>
     <div class="loading-title">Загружаю базу риджаля</div>
-    <div class="loading-subtitle">Подготавливаю список передатчиков и оптимизирую отрисовку</div>
+    <div class="loading-subtitle">Подготавливаю список передатчиков и интерфейс</div>
     <div class="loading-skeleton" aria-hidden="true">
       <span></span><span></span><span></span>
     </div>
@@ -3152,13 +3107,21 @@ document.addEventListener("DOMContentLoaded",()=>{
       </div>
       <span class="action-label">Генеалогия</span>
     </button>
-    <button class="action-btn" id="btnAiChat" title="Спросить ИИ о риджале">
+    <button class="action-btn" id="btnAiChat" title="Чат с ИИ">
       <div class="action-icon">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
         </svg>
       </div>
-      <span class="action-label">ИИ‑чат</span>
+      <span class="action-label">ИИ-чат</span>
+    </button>
+    <button class="action-btn" id="btnSettings" title="Настройки ИИ">
+      <div class="action-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </div>
+      <span class="action-label">Настройки</span>
     </button>
   </nav>
   <div class="action-bar-title">Инструменты анализа риджаля</div>
@@ -3262,7 +3225,11 @@ document.addEventListener("DOMContentLoaded",()=>{
     </div>
 
     <!-- Список -->
-    <ul class="transmitter-list" id="txСписок" role="listbox"></ul>
+    <div class="transmitter-list" id="txListViewport" role="listbox" style="overflow-y:auto; position:relative;">
+      <div id="txListTopSpacer" style="height:0px; flex-shrink:0;"></div>
+      <ul id="txСписок" style="list-style:none; padding:8px; display:flex; flex-direction:column; gap:4px; margin:0;"></ul>
+      <div id="txListBottomSpacer" style="height:0px; flex-shrink:0;"></div>
+    </div>
   </aside>
 
   <!-- Content -->
@@ -3437,6 +3404,75 @@ document.addEventListener("DOMContentLoaded",()=>{
   </div>
 </div>
 
+<!-- AI CHAT PANEL -->
+<div class="panel-overlay" id="aiChatPanel">
+  <div class="panel-box" style="width:min(560px,96vw);display:flex;flex-direction:column;max-height:min(85dvh,720px)">
+    <div class="panel-head">
+      <div class="panel-title">💬 Чат с ИИ — Ильм ар-Риджаль</div>
+      <button class="panel-close" id="aiChatClose">✕</button>
+    </div>
+
+    <!-- No-config warning -->
+    <div id="aiChatNoConfig" style="display:none;background:rgba(200,155,60,.1);border:1px solid var(--gold);border-radius:var(--radius);padding:14px 16px;margin-bottom:14px;font-size:13px;color:var(--text-2);line-height:1.6">
+      ⚠️ Сначала задайте Base URL и API-ключ в
+      <a href="#" id="aiChatOpenSettingsLink" style="color:var(--gold);text-decoration:underline">настройках ИИ</a>.
+    </div>
+
+    <!-- Messages -->
+    <div id="aiChatMessages" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:4px 2px 12px;min-height:240px;max-height:50vh"></div>
+
+    <!-- Composer -->
+    <div style="display:flex;gap:8px;align-items:flex-end;border-top:1px solid var(--border);padding-top:12px">
+      <textarea id="aiChatInput" rows="1" placeholder="Спросите про передатчика, риджаль, иснад…"
+        style="flex:1;resize:none;background:var(--ink-2);border:1px solid var(--border-bright);border-radius:var(--radius);color:var(--text);font-family:var(--font-body);font-size:14px;padding:10px 12px;max-height:120px;outline:none"></textarea>
+      <button id="aiChatSend" class="cmp-btn" style="white-space:nowrap;margin:0">Отправить</button>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:8px">
+      <button id="aiChatClear" style="background:none;border:none;color:var(--text-3);font-size:12px;cursor:pointer;text-decoration:underline">Очистить чат</button>
+      <span id="aiChatModelLabel" style="font-size:11px;color:var(--text-3);font-family:var(--font-mono)"></span>
+    </div>
+  </div>
+</div>
+
+<!-- SETTINGS PANEL (AI config) -->
+<div class="panel-overlay" id="settingsPanel">
+  <div class="panel-box" style="width:min(480px,96vw)">
+    <div class="panel-head">
+      <div class="panel-title">⚙️ Настройки ИИ</div>
+      <button class="panel-close" id="settingsClose">✕</button>
+    </div>
+
+    <p style="font-size:12.5px;color:var(--text-3);line-height:1.6;margin-bottom:16px">
+      Здесь задаются параметры подключения к вашему ИИ-провайдеру (OpenAI-совместимый API).
+      Данные сохраняются только в этом браузере (localStorage) и никуда не отправляются, кроме
+      указанного вами Base URL.
+    </p>
+
+    <label style="display:block;font-size:11px;color:var(--text-2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Base URL</label>
+    <input type="text" id="settingsBaseUrl" placeholder="https://api.openai.com/v1"
+      style="width:100%;background:var(--ink-2);border:1px solid var(--border-bright);border-radius:var(--radius);color:var(--text);font-family:var(--font-mono);font-size:13px;padding:10px 12px;margin-bottom:14px;outline:none">
+
+    <label style="display:block;font-size:11px;color:var(--text-2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">API-ключ</label>
+    <div style="position:relative;margin-bottom:14px">
+      <input type="password" id="settingsApiKey" placeholder="sk-..."
+        style="width:100%;background:var(--ink-2);border:1px solid var(--border-bright);border-radius:var(--radius);color:var(--text);font-family:var(--font-mono);font-size:13px;padding:10px 38px 10px 12px;outline:none">
+      <button id="settingsToggleKey" type="button" title="Показать/скрыть"
+        style="position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-3);cursor:pointer;padding:6px">👁</button>
+    </div>
+
+    <label style="display:block;font-size:11px;color:var(--text-2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Модель</label>
+    <input type="text" id="settingsModel" placeholder="gpt-4o-mini"
+      style="width:100%;background:var(--ink-2);border:1px solid var(--border-bright);border-radius:var(--radius);color:var(--text);font-family:var(--font-mono);font-size:13px;padding:10px 12px;margin-bottom:18px;outline:none">
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button id="settingsSave" class="cmp-btn" style="margin:0">Сохранить</button>
+      <button id="settingsTest" style="background:var(--ink-2);border:1px solid var(--border-bright);border-radius:var(--radius);color:var(--text-2);font-size:13px;padding:9px 16px;cursor:pointer;font-family:var(--font-body)">Проверить соединение</button>
+      <button id="settingsClear" style="background:none;border:none;color:var(--rose);font-size:12px;cursor:pointer;text-decoration:underline;margin-left:auto">Удалить данные</button>
+    </div>
+    <div id="settingsStatus" style="margin-top:12px;font-size:12.5px;line-height:1.5"></div>
+  </div>
+</div>
+
 <!-- ISNАД ANALYSER PANEL -->
 <div class="panel-overlay" id="isnadPanel">
   <div class="panel-box">
@@ -3560,41 +3596,6 @@ document.addEventListener("DOMContentLoaded",()=>{
     <div id="genealogyTree"></div>
   </div>
 </div>
-
-<!-- AI CHAT PANEL -->
-<div class="panel-overlay" id="aiChatPanel">
-  <div class="panel-box" style="width:min(620px,96vw);display:flex;flex-direction:column;max-height:88vh">
-    <div class="panel-head">
-      <div class="panel-title">💬 ИИ‑чат по риджалю</div>
-      <button class="panel-close" id="aiChatClose">✕</button>
-    </div>
-
-    <!-- Messages -->
-    <div id="aiChatMessages" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding-right:4px;margin-bottom:12px;min-height:200px;max-height:46vh">
-      <div class="ai-msg ai-msg-bot">Здравствуйте. Я — специализированный ИИ по шиитской науке ар-риджаль. Помогу с вопросами о шиитских передатчиках хадисов, иснадах (цепочках передачи) и шиитских хадисах. Спрашивайте о передатчиках или хадисах.</div>
-    </div>
-
-    <!-- Input -->
-    <div style="display:flex;gap:8px;align-items:flex-end">
-      <textarea id="aiChatInput" placeholder="Спросите о шиитском передатчике, иснаде или хадисе..."
-        style="flex:1;resize:none;background:var(--ink-2);border:1px solid var(--border-bright);border-radius:10px;color:var(--text);font-family:var(--font-body);font-size:13px;padding:10px 12px;min-height:44px;max-height:120px;outline:none"></textarea>
-      <button id="aiChatSend" style="background:var(--teal);color:var(--ink);border:none;border-radius:10px;padding:11px 16px;font-size:13px;font-weight:600;cursor:pointer;flex-shrink:0">Отправить</button>
-    </div>
-  </div>
-</div>
-
-<style>
-.ai-msg { padding:10px 14px; border-radius:12px; font-size:13px; line-height:1.55; max-width:88%; white-space:pre-wrap; }
-.ai-msg-bot { background:var(--ink-2); border:1px solid var(--border-bright); color:var(--text); align-self:flex-start; }
-.ai-msg-user { background:var(--teal-glow); border:1px solid var(--teal); color:var(--text); align-self:flex-end; }
-.ai-msg-error { background:var(--rose-glow); border:1px solid var(--rose); color:var(--text); align-self:flex-start; }
-.ai-msg-loading { display:flex; gap:4px; align-self:flex-start; padding:12px 14px; }
-.ai-msg-loading span { width:6px; height:6px; border-radius:50%; background:var(--text-3); animation:aiDotPulse 1.2s infinite ease-in-out; }
-.ai-msg-loading span:nth-child(2) { animation-delay:.15s; }
-.ai-msg-loading span:nth-child(3) { animation-delay:.3s; }
-@keyframes aiDotPulse { 0%,80%,100%{opacity:.3;transform:scale(.8)} 40%{opacity:1;transform:scale(1)} }
-</style>
-
 
 <!-- Reading progress bar -->
 <div id="readingProgress" style="width:0"></div>
@@ -3834,7 +3835,16 @@ let state = {
   epoch: 'all',
   sect: 'all',
   lightTheme: false,
-  sortMode: 'default'
+  sortMode: 'default',
+  // Виртуальный скроллинг списка передатчиков
+  vScroll: {
+    itemHeight: 64,
+    overscan: 8,
+    startIndex: 0,
+    endIndex: 0,
+    rafScheduled: false,
+    pageLoaded: 1
+  }
 };
 
 // ═══════════════════════════════════════
@@ -3880,21 +3890,6 @@ function toast(msg) {
   el.textContent = msg;
   w.appendChild(el);
   setTimeout(() => el.remove(), 2900);
-}
-
-function escapeRegExp(s) {
-  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
-
-let renderListTimer = 0;
-let renderListToken = 0;
-
-function scheduleRenderList(delay = 0) {
-  if (renderListTimer) clearTimeout(renderListTimer);
-  renderListTimer = setTimeout(() => {
-    renderListTimer = 0;
-    renderСписок();
-  }, delay);
 }
 
 // ═══════════════════════════════════════
@@ -4118,69 +4113,69 @@ function applyLang() {
 // ═══════════════════════════════════════
 // FILTER & SEARCH
 // ═══════════════════════════════════════
+// Regex для epoch-фильтра скомпилированы один раз (не на каждый вызов computeFiltered)
+const EPOCH_REGEX = {
+  sahaba: /сахаб|сподвижник пророка|صحابي/,
+  tabiin: /табиин|табии[^н]|تابعي/,
+  '2': /ii в|2[- ]в|умер в (1[0-9]{2})|г\.х\. 1[0-9]{2}/,
+  '3': /iii в|3[- ]в|умер в (2[0-9]{2})|г\.х\. 2[0-9]{2}/,
+  '4': /iv в|4[- ]в|умер в (3[0-9]{2})|г\.х\. 3[0-9]{2}/,
+  '5+': /[vx]+ в|[5-9][- ]в|умер в ([4-9][0-9]{2})|г\.х\. [4-9][0-9]{2}/
+};
+
 function computeFiltered() {
   const q = state.query.toLowerCase().trim();
-  let arr = state.data;
+  const fav = state.showFav;
+  const filter = state.filter;
+  const epoch = state.epoch;
+  const sect = state.sect;
+  const epochRe = epoch !== 'all' ? EPOCH_REGEX[epoch] : null;
 
-  // Избранное mode
-  if (state.showFav) {
-    arr = arr.filter(t => state.favorites.has(t.id));
-  }
+  // Один проход по всем 8000 записям вместо последовательных .filter() на каждое условие
+  const arr = state.data.filter(tx => {
+    if (fav && !state.favorites.has(tx.id)) return false;
 
-  // Status filter
-  if (state.filter !== 'all') {
-    arr = arr.filter(t => {
-      const style = t.shiaStatusStyle || '';
-      if (state.filter === 'trust') return style.includes('trust');
-      if (state.filter === 'weak') return style.includes('weak');
-      if (state.filter === 'disputed') return style.includes('disputed');
-      return true;
-    });
-  }
+    if (filter !== 'all') {
+      const style = tx.shiaStatusStyle || '';
+      if (filter === 'trust' && !style.includes('trust')) return false;
+      if (filter === 'weak' && !style.includes('weak')) return false;
+      if (filter === 'disputed' && !style.includes('disputed')) return false;
+    }
 
-  // Epoch filter
-  if (state.epoch !== 'all') {
-    arr = arr.filter(tx => {
-      const bio = (tx.bio || '').toLowerCase();
-      const name = (tx.name || '').toLowerCase();
-      const analysis = (tx.analysis || '').toLowerCase();
-      const all = bio + name + analysis;
-      if (state.epoch === 'sahaba') return /сахаб|сподвижник пророка|صحابي/.test(all);
-      if (state.epoch === 'tabiin') return /табиин|табии[^н]|تابعي/.test(all);
-      if (state.epoch === '2') return /ii в|2[- ]в|умер в (1[0-9]{2})|г\.х\. 1[0-9]{2}/.test(all);
-      if (state.epoch === '3') return /iii в|3[- ]в|умер в (2[0-9]{2})|г\.х\. 2[0-9]{2}/.test(all);
-      if (state.epoch === '4') return /iv в|4[- ]в|умер в (3[0-9]{2})|г\.х\. 3[0-9]{2}/.test(all);
-      if (state.epoch === '5+') return /[vx]+ в|[5-9][- ]в|умер в ([4-9][0-9]{2})|г\.х\. [4-9][0-9]{2}/.test(all);
-      return true;
-    });
-  }
+    if (epochRe) {
+      const all = (tx.bio || '') + (tx.name || '') + (tx.analysis || '');
+      if (!epochRe.test(all.toLowerCase())) return false;
+    }
 
-  // Sect filter
-  if (state.sect !== 'all') {
-    arr = arr.filter(tx => {
+    if (sect !== 'all') {
       const shia = (tx.shiaStatus || '').toLowerCase();
       const sunni = (tx.sunniStatus || '').toLowerCase();
       const bio = (tx.bio || '').toLowerCase();
       const all = shia + sunni + bio;
-      if (state.sect === 'imamit') {
-        return (shia.includes('тика') || shia.includes('садук') || shia.includes('сахаби')) &&
+      if (sect === 'imamit') {
+        const ok = (shia.includes('тика') || shia.includes('садук') || shia.includes('сахаби')) &&
           !shia.includes('слабый') && !shia.includes('отвергнут') && !shia.includes('не принимается');
-      }
-      if (state.sect === 'nasibi') return all.includes('насибит') || all.includes('насиби');
-      if (state.sect === 'ghulat') return all.includes('гулат') || all.includes('хаттабит');
-      if (state.sect === 'wakifi') return all.includes('вакифит') || all.includes('вакифи');
-      if (state.sect === 'zaydi') return all.includes('зейдит') || all.includes('зейдизм');
-      return true;
-    });
-  }
+        if (!ok) return false;
+      } else if (sect === 'nasibi' && !(all.includes('насибит') || all.includes('насиби'))) return false;
+      else if (sect === 'ghulat' && !(all.includes('гулат') || all.includes('хаттабит'))) return false;
+      else if (sect === 'wakifi' && !(all.includes('вакифит') || all.includes('вакифи'))) return false;
+      else if (sect === 'zaydi' && !(all.includes('зейдит') || all.includes('зейдизм'))) return false;
+    }
 
-  // Search
-  if (q) {
-    arr = arr.filter(tx => {
-      const blob = tx.__search || '';
-      return blob.includes(q) || (tx.arabicName && tx.arabicName.includes(state.query.trim()));
-    });
-  }
+    if (q) {
+      const matches =
+        (tx.name && tx.name.toLowerCase().includes(q)) ||
+        (tx.arabicName && tx.arabicName.includes(q)) ||
+        (tx.bio && tx.bio.toLowerCase().includes(q)) ||
+        (tx.analysis && tx.analysis.toLowerCase().includes(q)) ||
+        (tx.shiaStatus && tx.shiaStatus.toLowerCase().includes(q)) ||
+        (tx.sunniStatus && tx.sunniStatus.toLowerCase().includes(q)) ||
+        (tx.sources && tx.sources.some(s => s.toLowerCase().includes(q)));
+      if (!matches) return false;
+    }
+
+    return true;
+  });
 
   state.filtered = arr;
 
@@ -4204,14 +4199,92 @@ function computeFiltered() {
 // ═══════════════════════════════════════
 // RРУDER LIST
 // ═══════════════════════════════════════
-function renderСписок() {
-  const token = ++renderListToken;
-  computeFiltered();
-  const list = $('txСписок');
-  if (!list) return;
+// Подсветка совпадений поиска (вынесена из цикла рендера — компилируем regex один раз)
+let _hlRegex = null;
+let _hlQuery = '';
+function buildHlRegex() {
+  if (state.query === _hlQuery) return _hlRegex;
+  _hlQuery = state.query;
+  if (!state.query) { _hlRegex = null; return null; }
+  const q = state.query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  _hlRegex = new RegExp(q, 'gi');
+  return _hlRegex;
+}
+function hl(str) {
+  const re = buildHlRegex();
+  if (!re || !str) return str;
+  re.lastIndex = 0;
+  return str.replace(re, m => `<mark>${m}</mark>`);
+}
 
-  list.innerHTML = '';
+function buildTxItem(tx) {
+  const li = document.createElement('li');
+  li.className = 'tx-item' + (tx.id === state.activeId ? ' active' : '');
+  li.setAttribute('role', 'option');
+  li.setAttribute('aria-selected', tx.id === state.activeId);
+  li.dataset.id = tx.id;
+
+  const style = tx.shiaStatusStyle || 'status-weak';
+  const badgeClass = style.includes('trust') ? 'sb-trust' : style.includes('disputed') ? 'sb-disputed' : 'sb-weak';
+  const badgeText = style.includes('trust') ? t('trust') : style.includes('disputed') ? t('disputed') : t('weak');
+
+  const isFav = state.favorites.has(tx.id);
+  const isRTLLang = state.lang === 'ar' || state.lang === 'fa';
+  const isAzLang  = state.lang === 'az';
+  let displayName, displaySub;
+  if (isRTLLang) {
+    displayName = tx.arabicName || tx.name;
+    displaySub  = tx.name;
+  } else if (isAzLang) {
+    const azCached = arCache[`az_${tx.id}`];
+    displayName = (azCached && azCached.name) ? azCached.name : tx.name;
+    displaySub  = tx.arabicName || '';
+  } else {
+    displayName = tx.name;
+    displaySub  = tx.arabicName || '';
+  }
+
+  li.innerHTML = `
+    <div class="tx-name">${hl(displayName)}</div>
+    <div class="tx-arabic">${hl(displaySub)}</div>
+    <div class="tx-meta">
+      <span class="tx-id">#${tx.id + 1}</span>
+      <span class="tx-badge ${badgeClass}">${badgeText}</span>
+    </div>
+    ${isFav ? '<span class="tx-fav">★</span>' : ''}
+  `;
+
+  li.addEventListener('click', () => {
+    selectTransmitter(tx.id);
+    if (window.innerWidth <= 768) {
+      switchTab('detail');
+    }
+  });
+
+  return li;
+}
+
+// ═══════════════════════════════════════
+// ПРОСТАЯ ПАГИНАЦИЯ (вместо виртуального скроллинга)
+// — рендерим по 40 элементов, подгружаем при достижении конца
+// ═══════════════════════════════════════
+const PAGE_SIZE = 40;
+
+function renderСписок() {
+  computeFiltered();
   updateStats();
+
+  const viewport = $('txListViewport');
+  const list = $('txСписок');
+  const topSpacer = $('txListTopSpacer');
+  const bottomSpacer = $('txListBottomSpacer');
+
+  // Сбрасываем спейсеры (они больше не нужны)
+  topSpacer.style.height = '0px';
+  bottomSpacer.style.height = '0px';
+
+  // Сбрасываем скролл наверх
+  viewport.scrollTop = 0;
 
   if (state.filtered.length === 0) {
     list.innerHTML = `<li class="empty-state">
@@ -4221,84 +4294,83 @@ function renderСписок() {
     return;
   }
 
-  const total = state.filtered.length;
-  const batchSize = total > 2500 ? 120 : total > 1200 ? 160 : 220;
-  let idx = 0;
+  // Сбрасываем счётчик страниц
+  state.vScroll.pageLoaded = 1;
 
-  const makeItem = (tx, idx) => {
-    const li = document.createElement('li');
-    li.className = 'tx-item' + (tx.id === state.activeId ? ' active' : '');
-    li.setAttribute('role', 'option');
-    li.setAttribute('aria-selected', tx.id === state.activeId);
-    li.dataset.id = tx.id;
+  // Рендерим первую страницу
+  list.innerHTML = '';
+  const frag = document.createDocumentFragment();
+  const end = Math.min(PAGE_SIZE, state.filtered.length);
+  for (let i = 0; i < end; i++) {
+    frag.appendChild(buildTxItem(state.filtered[i]));
+  }
+  list.appendChild(frag);
 
-    const style = tx.shiaStatusStyle || 'status-weak';
-    const badgeClass = style.includes('trust') ? 'sb-trust' : style.includes('disputed') ? 'sb-disputed' : 'sb-weak';
-    const badgeText = style.includes('trust') ? t('trust') : style.includes('disputed') ? t('disputed') : t('weak');
-    const isFav = state.favorites.has(tx.id);
+  // Подключаем infinite scroll если элементов больше PAGE_SIZE
+  setupInfiniteScroll();
+}
 
-    const isRTLLang = state.lang === 'ar' || state.lang === 'fa';
-    const isAzLang = state.lang === 'az';
-    let displayName, displaySub;
-    if (isRTLLang) {
-      displayName = tx.arabicName || tx.name;
-      displaySub = tx.name;
-    } else if (isAzLang) {
-      const azCached = arCache[`az_${tx.id}`];
-      displayName = (azCached && azCached.name) ? azCached.name : tx.name;
-      displaySub = tx.arabicName || '';
-    } else {
-      displayName = tx.name;
-      displaySub = tx.arabicName || '';
-    }
+// Sentinel для IntersectionObserver
+let _scrollObserver = null;
+let _sentinel = null;
 
-    const qRaw = state.query.trim();
-    const qEsc = qRaw ? escapeRegExp(qRaw) : '';
-    const hl = (str) => {
-      if (!qEsc || !str) return str;
-      return str.replace(new RegExp(qEsc, 'gi'), m => `<mark>${m}</mark>`);
-    };
+function setupInfiniteScroll() {
+  // Убираем старый observer
+  if (_scrollObserver) { _scrollObserver.disconnect(); _scrollObserver = null; }
+  if (_sentinel) { _sentinel.remove(); _sentinel = null; }
 
-    li.innerHTML = `
-      <div class="tx-name">${hl(displayName)}</div>
-      <div class="tx-arabic">${hl(displaySub)}</div>
-      <div class="tx-meta">
-        <span class="tx-id">#${tx.id + 1}</span>
-        <span class="tx-badge ${badgeClass}">${badgeText}</span>
-      </div>
-      ${isFav ? '<span class="tx-fav">★</span>' : ''}
-    `;
+  if (state.filtered.length <= PAGE_SIZE) return;
 
-    li.addEventListener('click', () => {
-      selectTransmitter(tx.id);
-      if (window.innerWidth <= 768) {
-        switchTab('detail');
-      }
-    });
+  const list = $('txСписок');
+  const viewport = $('txListViewport');
 
-    return li;
-  };
+  _sentinel = document.createElement('li');
+  _sentinel.style.cssText = 'height:1px;pointer-events:none;list-style:none;';
+  list.appendChild(_sentinel);
 
-  const renderBatch = () => {
-    if (token !== renderListToken) return;
-    const frag = document.createDocumentFragment();
-    const end = Math.min(idx + batchSize, total);
-    for (; idx < end; idx++) {
-      frag.appendChild(makeItem(state.filtered[idx], idx));
-    }
+  _scrollObserver = new IntersectionObserver((entries) => {
+    if (!entries[0].isIntersecting) return;
+    loadNextPage();
+  }, { root: viewport, rootMargin: '200px' });
+
+  _scrollObserver.observe(_sentinel);
+}
+
+function loadNextPage() {
+  const list = $('txСписок');
+  const vs = state.vScroll;
+  const start = vs.pageLoaded * PAGE_SIZE;
+  const end = Math.min(start + PAGE_SIZE, state.filtered.length);
+
+  if (start >= state.filtered.length) {
+    // Всё загружено
+    if (_scrollObserver) { _scrollObserver.disconnect(); _scrollObserver = null; }
+    if (_sentinel) { _sentinel.remove(); _sentinel = null; }
+    return;
+  }
+
+  vs.pageLoaded++;
+
+  // Вставляем перед sentinel
+  const frag = document.createDocumentFragment();
+  for (let i = start; i < end; i++) {
+    frag.appendChild(buildTxItem(state.filtered[i]));
+  }
+  if (_sentinel && _sentinel.parentNode === list) {
+    list.insertBefore(frag, _sentinel);
+  } else {
     list.appendChild(frag);
+  }
+}
 
-    if (idx < total) {
-      const next = () => renderBatch();
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(next, { timeout: 60 });
-      } else {
-        requestAnimationFrame(next);
-      }
-    }
-  };
+// Заглушка — renderVisibleSlice больше не нужен, но оставляем чтобы не ломать вызовы
+function renderVisibleSlice(forceReset) {
+  // no-op: replaced by pagination
+}
 
-  renderBatch();
+// Заглушка onTxListScroll тоже больше не нужна
+function onTxListScroll() {
+  // no-op: IntersectionObserver handles loading
 }
 
 function updateStats() {
@@ -4319,7 +4391,7 @@ function updateStats() {
 function selectTransmitter(id) {
   state.activeId = id;
 
-  // Highlight active in list
+  // Highlight active in currently-rendered (visible) items
   $('txСписок').querySelectorAll('.tx-item').forEach(el => {
     const selected = parseInt(el.dataset.id) === id;
     el.classList.toggle('active', selected);
@@ -4621,35 +4693,17 @@ Yalnız etibarlı JSON ilə cavab verin, xaricdə heç bir mətn olmadan, dəqiq
 {"name":"Azərbaycan dilində ravi adı","bio":"tərcümə olunmuş mətn","analysis":"tərcümə olunmuş təhlil","sources":["Mənbə 1","Mənbə 2"]}`;
   }
 
-  const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
-  const CORS_PROXIES_TR = [
-    'https://corsproxy.io/?',
-    'https://api.codetabs.com/v1/proxy?quest=',
-    'https://cors.eu.org/',
-  ];
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 1200,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  });
 
-  let res = null;
-  let lastErrorTr = null;
-
-  for (const proxy of CORS_PROXIES_TR) {
-    try {
-      res = await fetch(proxy + encodeURIComponent(ANTHROPIC_URL), {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 1200,
-          messages: [{ role: 'user', content: prompt }]
-        })
-      });
-      if (res.ok) break;
-    } catch(err) {
-      lastErrorTr = err;
-    }
-  }
-
-  if (!res || !res.ok) throw new Error(lastErrorTr?.message || 'Translation proxy failed');
-
+  if (!res.ok) throw new Error('API ' + res.status);
   const data = await res.json();
   const raw = data.content.map(c => c.text || '').join('');
   const cleaned = raw.replace(/```json|```/g, '').trim();
@@ -4915,17 +4969,20 @@ function initEvents() {
     });
   });
 
-  // Search
+  // Search (с debounce — на 8000+ записях не пересчитываем фильтр на каждый символ)
+  let _searchDebounceTimer = null;
   $('searchInput').addEventListener('input', (e) => {
     state.query = e.target.value;
     $('searchClear').style.display = state.query ? 'block' : 'none';
-    scheduleRenderList(120);
+    clearTimeout(_searchDebounceTimer);
+    _searchDebounceTimer = setTimeout(() => renderСписок(), 120);
   });
 
   $('searchClear').addEventListener('click', () => {
     $('searchInput').value = '';
     state.query = '';
     $('searchClear').style.display = 'none';
+    clearTimeout(_searchDebounceTimer);
     renderСписок();
     $('searchInput').focus();
   });
@@ -5018,7 +5075,7 @@ async function init() {
   loadНастройки();
   applyLang();
   const loadingEl = $('loading');
-  if (loadingEl) loadingEl.classList.add('open');
+  if (loadingEl) loadingEl.style.display = 'flex';
 
   // Load data from transmitters.json + transmitters2/3/4.json (если есть)
   let raw = [];
@@ -5052,18 +5109,7 @@ async function init() {
     return;
   }
   // Назначаем ID по индексу — гарантирует уникальность
-  raw.forEach((item, i) => {
-    item.id = i;
-    item.__search = [
-      item.name || '',
-      item.arabicName || '',
-      item.bio || '',
-      item.analysis || '',
-      item.shiaStatus || '',
-      item.sunniStatus || '',
-      ...(Array.isArray(item.sources) ? item.sources : [])
-    ].join(' ').toLowerCase();
-  });
+  raw.forEach((item, i) => { item.id = i; });
   state.data = raw;
 
   renderСписок();
@@ -5074,7 +5120,6 @@ async function init() {
   if (loadingHideEl) {
     loadingHideEl.classList.add('hidden');
     setTimeout(() => {
-      loadingHideEl.classList.remove('open');
       loadingHideEl.style.display = 'none';
       document.body.classList.remove('app-intro');
     }, 280);
@@ -5097,6 +5142,17 @@ async function init() {
   initEvents();
   initNewPanelEvents();
   initExtras();
+
+  // Виртуальный скроллинг: перерисовываем видимое окно при скролле и resize
+  const txViewport = $('txListViewport');
+  if (txViewport) {
+    txViewport.addEventListener('scroll', onTxListScroll, { passive: true });
+  }
+  let _resizeDebounce = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(_resizeDebounce);
+    _resizeDebounce = setTimeout(() => renderVisibleSlice(true), 150);
+  });
 }
 
 // ═══════════════════════════════════════
@@ -5192,10 +5248,15 @@ function initExtras() {
   $('glossaryClose').addEventListener('click', () => closePanel('glossaryPanel'));
   $('glossaryPanel').addEventListener('click', e => { if (e.target === $('glossaryPanel')) closePanel('glossaryPanel'); });
 
+  // ── ИИ-чат и настройки ──────────────────────────────────────────
+  initAiChatPanel();
+  initSettingsPanel();
+  updateAiChatModelLabel();
+
   // Escape closes any panel
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
-      ['statsPanel','comparePanel','timelinePanel','glossaryPanel'].forEach(id => closePanel(id));
+      ['statsPanel','comparePanel','timelinePanel','glossaryPanel','aiChatPanel','settingsPanel'].forEach(id => closePanel(id));
     }
   });
 }
@@ -5203,12 +5264,264 @@ function initExtras() {
 function closePanel(id) { $(id).classList.remove('open'); }
 function openPanelEl(id) { $(id).classList.add('open'); }
 
+// ═══════════════════════════════════════════════════════════════
+// НАСТРОЙКИ ИИ — Base URL / API-ключ / модель
+// ═══════════════════════════════════════════════════════════════
+const AI_CFG_KEY = 'rijal_ai_config_v1';
+const AI_CHAT_HISTORY_KEY = 'rijal_ai_chat_v1';
+
+function loadAiConfig() {
+  try {
+    return JSON.parse(localStorage.getItem(AI_CFG_KEY)) || { baseUrl: '', apiKey: '', model: '' };
+  } catch { return { baseUrl: '', apiKey: '', model: '' }; }
+}
+
+function saveAiConfig(cfg) {
+  localStorage.setItem(AI_CFG_KEY, JSON.stringify(cfg));
+}
+
+function aiConfigIsSet() {
+  const cfg = loadAiConfig();
+  return !!(cfg.baseUrl && cfg.apiKey);
+}
+
+function openSettings() {
+  const cfg = loadAiConfig();
+  $('settingsBaseUrl').value = cfg.baseUrl || '';
+  $('settingsApiKey').value = cfg.apiKey || '';
+  $('settingsModel').value = cfg.model || '';
+  $('settingsStatus').textContent = '';
+  openPanelEl('settingsPanel');
+}
+
+function initSettingsPanel() {
+  $('btnSettings').addEventListener('click', openSettings);
+  $('settingsClose').addEventListener('click', () => closePanel('settingsPanel'));
+  $('settingsPanel').addEventListener('click', e => { if (e.target === $('settingsPanel')) closePanel('settingsPanel'); });
+
+  $('settingsToggleKey').addEventListener('click', () => {
+    const inp = $('settingsApiKey');
+    inp.type = inp.type === 'password' ? 'text' : 'password';
+  });
+
+  $('settingsSave').addEventListener('click', () => {
+    const cfg = {
+      baseUrl: $('settingsBaseUrl').value.trim().replace(/\/+$/, ''),
+      apiKey: $('settingsApiKey').value.trim(),
+      model: $('settingsModel').value.trim() || 'gpt-4o-mini',
+    };
+    saveAiConfig(cfg);
+    $('settingsStatus').innerHTML = '<span style="color:var(--teal-light)">✓ Сохранено в этом браузере.</span>';
+    toast('✓ Настройки ИИ сохранены');
+    updateAiChatModelLabel();
+  });
+
+  $('settingsClear').addEventListener('click', () => {
+    localStorage.removeItem(AI_CFG_KEY);
+    $('settingsBaseUrl').value = '';
+    $('settingsApiKey').value = '';
+    $('settingsModel').value = '';
+    $('settingsStatus').innerHTML = '<span style="color:var(--text-3)">Данные удалены.</span>';
+    toast('Настройки ИИ удалены');
+    updateAiChatModelLabel();
+  });
+
+  $('settingsTest').addEventListener('click', async () => {
+    const cfg = {
+      baseUrl: $('settingsBaseUrl').value.trim().replace(/\/+$/, ''),
+      apiKey: $('settingsApiKey').value.trim(),
+      model: $('settingsModel').value.trim() || 'gpt-4o-mini',
+    };
+    if (!cfg.baseUrl || !cfg.apiKey) {
+      $('settingsStatus').innerHTML = '<span style="color:var(--rose)">Укажите Base URL и API-ключ.</span>';
+      return;
+    }
+    $('settingsStatus').innerHTML = '<span class="ar-loading">Проверка соединения…</span>';
+    try {
+      const resp = await fetch(`${cfg.baseUrl}/chat/completions`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${cfg.apiKey}`,
+        },
+        body: JSON.stringify({
+          model: cfg.model,
+          messages: [{ role: 'user', content: 'ping' }],
+          max_tokens: 5,
+        }),
+      });
+      if (resp.ok) {
+        $('settingsStatus').innerHTML = '<span style="color:var(--teal-light)">✓ Соединение успешно установлено.</span>';
+      } else {
+        const errText = await resp.text().catch(() => '');
+        $('settingsStatus').innerHTML = `<span style="color:var(--rose)">✗ Ошибка ${resp.status}: ${(errText || resp.statusText).slice(0, 200)}</span>`;
+      }
+    } catch (err) {
+      $('settingsStatus').innerHTML = `<span style="color:var(--rose)">✗ Не удалось подключиться: ${err.message}</span>`;
+    }
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// ИИ-ЧАТ
+// ═══════════════════════════════════════════════════════════════
+function loadChatHistory() {
+  try { return JSON.parse(localStorage.getItem(AI_CHAT_HISTORY_KEY)) || []; }
+  catch { return []; }
+}
+function saveChatHistory(history) {
+  localStorage.setItem(AI_CHAT_HISTORY_KEY, JSON.stringify(history));
+}
+
+function renderChatMessage(role, content) {
+  const wrap = $('aiChatMessages');
+  const bubble = document.createElement('div');
+  const isUser = role === 'user';
+  bubble.style.maxWidth = '85%';
+  bubble.style.alignSelf = isUser ? 'flex-end' : 'flex-start';
+  bubble.style.background = isUser ? 'var(--teal-glow)' : 'var(--ink-2)';
+  bubble.style.border = `1px solid ${isUser ? 'var(--border-bright)' : 'var(--border)'}`;
+  bubble.style.borderRadius = 'var(--radius)';
+  bubble.style.padding = '10px 13px';
+  bubble.style.fontSize = '13.5px';
+  bubble.style.lineHeight = '1.6';
+  bubble.style.color = isUser ? 'var(--text)' : 'var(--text-2)';
+  bubble.style.whiteSpace = 'pre-wrap';
+  bubble.textContent = content;
+  wrap.appendChild(bubble);
+  wrap.scrollTop = wrap.scrollHeight;
+  return bubble;
+}
+
+function buildSystemPrompt() {
+  const total = state.data ? state.data.length : 0;
+  return `Ты — экспертный ассистент проекта "Ильм ар-Риджаль" (علم الرجال), посвящённого критическому анализу передатчиков хадисов в шиитской и суннитской традициях. В базе ${total} передатчиков с биографиями, статусами надёжности (тика/даиф/спорный) по обеим традициям, анализом двойных стандартов и источниками. Отвечай по существу вопросов о риджале, иснадах, конкретных передатчиках, методологии критики хадисов. Если не уверен в фактах — говори об этом прямо, не выдумывай атрибуции.`;
+}
+
+async function sendAiChatMessage(userText) {
+  const cfg = loadAiConfig();
+  if (!cfg.baseUrl || !cfg.apiKey) {
+    $('aiChatNoConfig').style.display = 'block';
+    return;
+  }
+  $('aiChatNoConfig').style.display = 'none';
+
+  renderChatMessage('user', userText);
+  let history = loadChatHistory();
+  history.push({ role: 'user', content: userText });
+
+  const thinkingBubble = renderChatMessage('assistant', '…');
+  thinkingBubble.classList.add('ai-thinking');
+
+  const sendBtn = $('aiChatSend');
+  sendBtn.disabled = true;
+  sendBtn.textContent = '…';
+
+  try {
+    const messages = [
+      { role: 'system', content: buildSystemPrompt() },
+      ...history.slice(-20), // последние 20 сообщений для контекста
+    ];
+
+    const resp = await fetch(`${cfg.baseUrl}/chat/completions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${cfg.apiKey}`,
+      },
+      body: JSON.stringify({
+        model: cfg.model || 'gpt-4o-mini',
+        messages,
+        temperature: 0.4,
+      }),
+    });
+
+    if (!resp.ok) {
+      const errText = await resp.text().catch(() => '');
+      thinkingBubble.textContent = `✗ Ошибка ${resp.status}: ${(errText || resp.statusText).slice(0, 300)}`;
+      thinkingBubble.style.color = 'var(--rose)';
+      return;
+    }
+
+    const data = await resp.json();
+    const reply = data?.choices?.[0]?.message?.content || '(пустой ответ)';
+    thinkingBubble.textContent = reply;
+    thinkingBubble.classList.remove('ai-thinking');
+
+    history.push({ role: 'assistant', content: reply });
+    saveChatHistory(history);
+  } catch (err) {
+    thinkingBubble.textContent = `✗ Сетевая ошибка: ${err.message}`;
+    thinkingBubble.style.color = 'var(--rose)';
+  } finally {
+    sendBtn.disabled = false;
+    sendBtn.textContent = 'Отправить';
+  }
+}
+
+function updateAiChatModelLabel() {
+  const cfg = loadAiConfig();
+  const label = $('aiChatModelLabel');
+  if (!label) return;
+  label.textContent = cfg.model ? `модель: ${cfg.model}` : '';
+}
+
+function openAiChat() {
+  openPanelEl('aiChatPanel');
+  $('aiChatNoConfig').style.display = aiConfigIsSet() ? 'none' : 'block';
+  updateAiChatModelLabel();
+  // Render existing history on first open
+  const wrap = $('aiChatMessages');
+  if (!wrap.dataset.rendered) {
+    const history = loadChatHistory();
+    history.forEach(m => renderChatMessage(m.role, m.content));
+    wrap.dataset.rendered = '1';
+  }
+  $('aiChatInput').focus();
+}
+
+function initAiChatPanel() {
+  $('btnAiChat').addEventListener('click', openAiChat);
+  $('aiChatClose').addEventListener('click', () => closePanel('aiChatPanel'));
+  $('aiChatPanel').addEventListener('click', e => { if (e.target === $('aiChatPanel')) closePanel('aiChatPanel'); });
+  $('aiChatOpenSettingsLink').addEventListener('click', e => {
+    e.preventDefault();
+    closePanel('aiChatPanel');
+    openSettings();
+  });
+
+  const input = $('aiChatInput');
+  const send = () => {
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+    input.style.height = 'auto';
+    sendAiChatMessage(text);
+  };
+  $('aiChatSend').addEventListener('click', send);
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+  });
+  input.addEventListener('input', () => {
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 120) + 'px';
+  });
+
+  $('aiChatClear').addEventListener('click', () => {
+    saveChatHistory([]);
+    $('aiChatMessages').innerHTML = '';
+    $('aiChatMessages').dataset.rendered = '1';
+    toast('Чат очищен');
+  });
+}
+
+
 // ── STATS ────────────────────────────────────────────────────────
 function openStats() {
   const data = state.data;
   const cats = [
-    { label: 'Имамиты (Тика)', color: '#0d9488', test: tx => (tx.shiaStatusStyle||'').includes('trust') },
-    { label: 'Спорные',        color: '#d97706', test: tx => (tx.shiaStatusStyle||'').includes('disputed') },
+    { label: 'Имамиты (Тика)', color: '#14a877', test: tx => (tx.shiaStatusStyle||'').includes('trust') },
+    { label: 'Спорные',        color: '#c89b3c', test: tx => (tx.shiaStatusStyle||'').includes('disputed') },
     { label: 'Слабые',         color: '#e11d48', test: tx => {
         const s = (tx.shiaStatus||'').toLowerCase();
         return (tx.shiaStatusStyle||'').includes('weak') && !s.includes('насибит') && !s.includes('насиби') && !s.includes('гулат') && !s.includes('вакифит') && !s.includes('зейдит');
@@ -5952,28 +6265,15 @@ function initNewPanelEvents() {
   $('genealogyClose').addEventListener('click', () => closePanel('genealogyPanel'));
   $('genealogyPanel').addEventListener('click', e => { if (e.target === $('genealogyPanel')) closePanel('genealogyPanel'); });
 
-  // AI Chat
-  $('btnAiChat').addEventListener('click', openAiChat);
-  $('aiChatClose').addEventListener('click', () => closePanel('aiChatPanel'));
-  $('aiChatPanel').addEventListener('click', e => { if (e.target === $('aiChatPanel')) closePanel('aiChatPanel'); });
-  $('aiChatSend').addEventListener('click', sendAiMessage);
-  $('aiChatInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendAiMessage(); }
-  });
-
   // Scroll-to-top
-  let contentScrollRAF = 0;
   $('content').addEventListener('scroll', () => {
-    if (contentScrollRAF) return;
-    contentScrollRAF = requestAnimationFrame(() => {
-      const scrollY = $('content').scrollTop;
-      $('btnScrollTop').classList.toggle('visible', scrollY > 300);
-      const total = $('content').scrollHeight - $('content').clientHeight;
-      const pct = total > 0 ? (scrollY / total * 100).toFixed(1) : 0;
-      $('readingProgress').style.width = pct + '%';
-      contentScrollRAF = 0;
-    });
-  }, { passive: true });
+    const scrollY = $('content').scrollTop;
+    $('btnScrollTop').classList.toggle('visible', scrollY > 300);
+    // Reading progress
+    const total = $('content').scrollHeight - $('content').clientHeight;
+    const pct = total > 0 ? (scrollY / total * 100).toFixed(1) : 0;
+    $('readingProgress').style.width = pct + '%';
+  });
   $('btnScrollTop').addEventListener('click', () => {
     $('content').scrollTo({ top: 0, behavior: 'smooth' });
   });
@@ -6224,114 +6524,6 @@ async function openGenealogy() {
   renderGenTree(data);
 }
 
-// ═══════════════════════════════════════
-// AI CHAT
-// ═══════════════════════════════════════
-const AI_API_KEY = 'sk-smart-j7znaOfNlcXYrXNQy9TfDxn7mPY6TEiwp7Be3j8TUdU';
-const AI_BASE_URL = '/api';
-let aiChatHistory = [];
-
-function openAiChat() {
-  openPanelEl('aiChatPanel');
-  $('aiChatInput').focus();
-}
-
-function appendAiMessage(role, text) {
-  const wrap = document.createElement('div');
-  wrap.className = 'ai-msg ' + (role === 'user' ? 'ai-msg-user' : role === 'error' ? 'ai-msg-error' : 'ai-msg-bot');
-  wrap.textContent = text;
-  $('aiChatMessages').appendChild(wrap);
-  $('aiChatMessages').scrollTop = $('aiChatMessages').scrollHeight;
-  return wrap;
-}
-
-function appendAiLoading() {
-  const wrap = document.createElement('div');
-  wrap.className = 'ai-msg-loading';
-  wrap.id = 'aiLoadingIndicator';
-  wrap.innerHTML = '<span></span><span></span><span></span>';
-  $('aiChatMessages').appendChild(wrap);
-  $('aiChatMessages').scrollTop = $('aiChatMessages').scrollHeight;
-}
-
-function removeAiLoading() {
-  const el = $('aiLoadingIndicator');
-  if (el) el.remove();
-}
-
-async function sendAiMessage() {
-  const input = $('aiChatInput');
-  const text = input.value.trim();
-  if (!text) return;
-
-  appendAiMessage('user', text);
-  aiChatHistory.push({ role: 'user', content: text });
-  input.value = '';
-  appendAiLoading();
-  $('aiChatSend').disabled = true;
-
-  try {
-    const requestBody = {
-      model: 'qwen3.7-plus',
-      messages: [
-        { role: 'system', content: 'Ты — специализированный ИИ-эксперт по шиитской науке ар-риджаль (علم الرجال) и анализу иснадов (цепочек передатчиков хадисов). Ты работаешь ТОЛЬКО с шиитскими источниками и шиитскими передатчиками. Ты отвечаешь исключительно на вопросы о передатчиках хадисов в интернете (онлайн-источниках) и хадисах из шиитских книг. Ты не отвечаешь на вопросы, не связанные с шиитскими передатчиками и иснадами. Если вопрос не по теме, вежливо откажись и напомни, что ты специализируешься только на шиитских передатчиках и хадисах. Отвечай на русском языке, точно и по существу, опираясь на классические шиитские источники (Риджаль ан-Наджаши, Риджаль ат-Туси, Риджаль аль-Хилли, Риджаль аль-Барки, Риджаль Ибн Давуд, Мустадрак аль-Васаиль, Бихар аль-Анвар и др.).' },
-        ...aiChatHistory
-      ]
-    };
-
-    // Цепочка CORS-прокси: пробуем по порядку пока один не сработает
-    const API_URL = 'https://smartapi.shop/backend/v1/chat/completions';
-    const CORS_PROXIES = [
-      'https://corsproxy.io/?',
-      'https://api.codetabs.com/v1/proxy?quest=',
-      'https://cors.eu.org/',
-    ];
-
-    let res = null;
-    let lastError = null;
-
-    for (const proxy of CORS_PROXIES) {
-      try {
-        const proxyUrl = proxy + encodeURIComponent(API_URL);
-        res = await fetch(proxyUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + AI_API_KEY
-          },
-          body: JSON.stringify(requestBody)
-        });
-        if (res.ok) break; // успех — выходим из цикла
-      } catch(err) {
-        lastError = err;
-        console.warn('Proxy failed:', proxy, err.message);
-      }
-    }
-
-    if (!res || !res.ok) {
-      const errText = res ? (await res.text().catch(() => res.statusText)) : (lastError?.message || 'All proxies failed');
-      throw new Error(errText.slice(0, 200));
-    }
-
-    const data = await res.json();
-    const reply = data?.choices?.[0]?.message?.content
-      || data?.content?.[0]?.text
-      || data?.message
-      || '(пустой ответ от сервера)';
-
-    removeAiLoading();
-    appendAiMessage('bot', reply);
-    aiChatHistory.push({ role: 'assistant', content: reply });
-
-  } catch(err) {
-    removeAiLoading();
-    appendAiMessage('error', '⚠ Ошибка запроса: ' + err.message);
-    console.error('AI chat error:', err);
-  } finally {
-    $('aiChatSend').disabled = false;
-  }
-}
-
 function renderGenNode(nodeId, data, depth) {
   const node = data.nodes[String(nodeId)];
   if (!node) return '';
@@ -6465,8 +6657,8 @@ function copyWallet(rowEl, addr) {
   }
   // Visual feedback on the row
   const orig = rowEl.style.borderColor;
-  rowEl.style.borderColor = 'rgba(13,148,136,.7)';
-  rowEl.style.background = 'rgba(13,148,136,.08)';
+  rowEl.style.borderColor = 'rgba(20,168,119,.7)';
+  rowEl.style.background = 'rgba(20,168,119,.08)';
   const copyBtn = rowEl.querySelector('.wallet-copy');
   if (copyBtn) { const t = copyBtn.textContent; copyBtn.textContent = '✓ Скопировано'; setTimeout(() => { copyBtn.textContent = t; }, 2000); }
   setTimeout(() => { rowEl.style.borderColor = orig; rowEl.style.background = ''; }, 1800);
@@ -6512,26 +6704,16 @@ document.addEventListener('DOMContentLoaded', () => {
     state.lang = 'ru';
     try { localStorage.setItem('rijal_lang', 'ru'); } catch(e) {}
 
-    // Subtle pointer-driven glow on desktop only
-    const finePointer = window.matchMedia('(pointer:fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (finePointer) {
-      let raf = 0;
-      let lastX = 50;
-      let lastY = 50;
-      const setPointer = (e) => {
-        lastX = (e.clientX / window.innerWidth) * 100;
-        lastY = (e.clientY / window.innerHeight) * 100;
-        if (raf) return;
-        raf = requestAnimationFrame(() => {
-          document.body.style.setProperty('--mx', lastX + '%');
-          document.body.style.setProperty('--my', lastY + '%');
-          raf = 0;
-        });
-      };
-      window.addEventListener('pointermove', setPointer, { passive: true });
-    }
+    // Subtle pointer-driven glow
+    const setPointer = (e) => {
+      const x = (e.clientX / window.innerWidth) * 100;
+      const y = (e.clientY / window.innerHeight) * 100;
+      document.body.style.setProperty('--mx', x + '%');
+      document.body.style.setProperty('--my', y + '%');
+    };
+    window.addEventListener('pointermove', setPointer, { passive: true });
 
-    // Floating particles only on desktop
+    // Floating particles
     let fx = document.getElementById('fxLayer');
     if (!fx) {
       fx = document.createElement('div');
@@ -6539,7 +6721,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.appendChild(fx);
     }
     fx.innerHTML = '';
-    const count = finePointer ? 10 : 0;
+    const count = window.innerWidth < 768 ? 10 : 22;
     for (let i = 0; i < count; i++) {
       const p = document.createElement('span');
       p.className = 'fx-particle';
@@ -6567,15 +6749,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Slight parallax on header, throttled for smoother scrolling
     const header = document.querySelector('.app-header');
-    if (header && window.matchMedia('(pointer:fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (header && window.matchMedia('(pointer:fine)').matches) {
       let raf = 0;
       let latestX = 0;
       window.addEventListener('pointermove', (e) => {
         latestX = e.clientX;
         if (raf) return;
         raf = requestAnimationFrame(() => {
-          const dx = ((latestX / window.innerWidth) - 0.5) * 4;
-          header.style.transform = `translate3d(${dx * 0.05}px,0,0)`;
+          const dx = ((latestX / window.innerWidth) - 0.5) * 8;
+          header.style.transform = `translate3d(${dx * 0.08}px,0,0)`;
           raf = 0;
         });
       }, { passive: true });
